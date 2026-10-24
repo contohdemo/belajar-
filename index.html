@@ -86,7 +86,36 @@
           }
         }
       ],
- 
+
+      /* ================= DETAIL LAYANAN (saat kartu layanan di-klik) =================
+         Urutan harus sama dengan 4 kartu di bagian "Layanan": Poli Umum, Poli Gigi, KIA, Laboratorium.
+         foto : daftar foto ruangan yang bisa digeser (gambar ke samping) di dalam popup.
+                - Boleh 1 foto, boleh banyak foto, boleh dikosongkan.
+                - TAMBAH FOTO : tulis nama file foto baru, pisahkan pakai koma. Contoh:
+                  foto: ["ruang-1.jpg", "ruang-2.jpg", "ruang-3.jpg"]
+                - HAPUS FOTO  : hapus salah satu nama file beserta komanya.
+                - Nama file foto taruh satu folder dengan file HTML ini (sama seperti FOTO_HERO/foto dokter),
+                  atau boleh diisi link gambar langsung.
+         penjelasan : keterangan singkat & sederhana yang tampil di popup saat kartu diklik. */
+      LAYANAN_DETAIL: [
+        {
+          foto: [],
+          penjelasan: "Ruang Poli Umum kami nyaman dan bersih, dilengkapi alat pemeriksaan dasar untuk konsultasi keluhan sehari-hari seperti demam, flu, batuk, dan pemeriksaan kesehatan rutin. Dokter akan memeriksa dan menjelaskan kondisi Anda dengan bahasa yang mudah dipahami."
+        },
+        {
+          foto: [],
+          penjelasan: "Ruang Poli Gigi dilengkapi kursi periksa gigi modern dan alat steril untuk tindakan seperti tambal, cabut, dan pembersihan karang gigi. Ruangan didesain senyaman mungkin, termasuk untuk pasien anak-anak yang mudah takut ke dokter gigi."
+        },
+        {
+          foto: [],
+          penjelasan: "Ruang KIA (Kesehatan Ibu & Anak) digunakan untuk pemeriksaan kehamilan, imunisasi bayi dan anak, serta konsultasi KB. Suasananya tenang dan ramah agar ibu dan anak merasa nyaman selama pemeriksaan."
+        },
+        {
+          foto: [],
+          penjelasan: "Ruang Laboratorium kami melayani pengambilan sampel darah dan urin untuk berbagai jenis pemeriksaan, seperti gula darah, kolesterol, dan tes kehamilan. Hasil pemeriksaan diproses dengan cepat dan akurat."
+        }
+      ],
+
       /* ================= TESTIMONI =================
          TAMBAH: salin satu blok { ... } lalu tempel setelah koma. HAPUS: hapus satu blok.
          bintang : angka 1 sampai 5. */
@@ -205,6 +234,7 @@
       scrollbar-width: none;
     }
     .track::-webkit-scrollbar { display: none; }
+    #trackFotoLayanan::-webkit-scrollbar { display: none; }
     .track > .item {
       flex: 0 0 auto;
       width: calc((100% - (var(--n) - 1) * 16px) / var(--n));
@@ -343,40 +373,44 @@
         <div data-carousel>
           <div class="track empat">
             <!-- Poli Umum -->
-            <div class="item group bg-white rounded-2xl p-6 border border-slate-100 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+            <button type="button" data-layanan="0" class="item group bg-white rounded-2xl p-6 border border-slate-100 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-left w-full cursor-pointer">
               <div class="w-14 h-14 rounded-2xl bg-brand-50 text-brand-600 group-hover:bg-brand-600 group-hover:text-white flex items-center justify-center transition-colors duration-300">
                 <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M4.8 2.3A.3.3 0 105 2H4a2 2 0 00-2 2v5a6 6 0 006 6 6 6 0 006-6V4a2 2 0 00-2-2h-1a.2.2 0 10.3.3"/><path d="M8 15v1a6 6 0 006 6 6 6 0 006-6v-4"/><circle cx="20" cy="10" r="2"/></svg>
               </div>
               <h3 class="mt-4 text-lg font-semibold text-slate-900">Poli Umum</h3>
               <p class="mt-2 text-sm text-slate-500 leading-relaxed">Pemeriksaan, konsultasi, dan pengobatan untuk keluhan kesehatan sehari-hari.</p>
-            </div>
- 
+              <span class="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-brand-600">Lihat ruangan <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            </button>
+
             <!-- Poli Gigi -->
-            <div class="item group bg-white rounded-2xl p-6 border border-slate-100 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+            <button type="button" data-layanan="1" class="item group bg-white rounded-2xl p-6 border border-slate-100 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-left w-full cursor-pointer">
               <div class="w-14 h-14 rounded-2xl bg-cyan-50 text-cyan-600 group-hover:bg-cyan-600 group-hover:text-white flex items-center justify-center transition-colors duration-300">
                 <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M7 3C4.5 3 3 5 3 7.5c0 3 1.5 4 2 7 .4 2.500 1 6.500 2.500 6.500S9 17 12 17s3 4.500 4.500 4.500S18.600 17 19 14.500c.5-3 2-4 2-7C21 5 19.500 3 17 3c-2 0-3 1-5 1S9 3 7 3z"/></svg>
               </div>
               <h3 class="mt-4 text-lg font-semibold text-slate-900">Poli Gigi</h3>
               <p class="mt-2 text-sm text-slate-500 leading-relaxed">Pembersihan karang gigi, tambal, cabut, hingga perawatan estetika gigi.</p>
-            </div>
- 
+              <span class="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-cyan-600">Lihat ruangan <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            </button>
+
             <!-- KIA -->
-            <div class="item group bg-white rounded-2xl p-6 border border-slate-100 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+            <button type="button" data-layanan="2" class="item group bg-white rounded-2xl p-6 border border-slate-100 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-left w-full cursor-pointer">
               <div class="w-14 h-14 rounded-2xl bg-brand-50 text-brand-600 group-hover:bg-brand-600 group-hover:text-white flex items-center justify-center transition-colors duration-300">
                 <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 21s-8-5-9.500-10C1.500 7.500 4 4.500 7.500 4.500c2 0 3.500 1 4.500 2.500 1-1.500 2.500-2.500 4.500-2.500 3.500 0 6 3 5 6.500C20 16 12 21 12 21z"/></svg>
               </div>
               <h3 class="mt-4 text-lg font-semibold text-slate-900">KIA</h3>
               <p class="mt-2 text-sm text-slate-500 leading-relaxed">Kesehatan ibu dan anak: pemeriksaan kehamilan, imunisasi, dan konsultasi KB.</p>
-            </div>
- 
+              <span class="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-brand-600">Lihat ruangan <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            </button>
+
             <!-- Lab -->
-            <div class="item group bg-white rounded-2xl p-6 border border-slate-100 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+            <button type="button" data-layanan="3" class="item group bg-white rounded-2xl p-6 border border-slate-100 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-left w-full cursor-pointer">
               <div class="w-14 h-14 rounded-2xl bg-cyan-50 text-cyan-600 group-hover:bg-cyan-600 group-hover:text-white flex items-center justify-center transition-colors duration-300">
                 <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 3h6M10 3v6l-5 10a2 2 0 001.800 3h10.400A2 2 0 0019 19l-5-10V3M7.500 15h9"/></svg>
               </div>
               <h3 class="mt-4 text-lg font-semibold text-slate-900">Laboratorium</h3>
               <p class="mt-2 text-sm text-slate-500 leading-relaxed">Cek darah, urin, gula darah, dan pemeriksaan penunjang dengan hasil cepat.</p>
-            </div>
+              <span class="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-cyan-600">Lihat ruangan <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            </button>
           </div>
           <div class="nav"></div>
         </div>
@@ -505,6 +539,58 @@
     </div>
   </footer>
  
+  <!-- ================= POPUP DETAIL LAYANAN (foto ruangan + penjelasan) ================= -->
+  <div id="modalLayanan" class="fixed inset-0 z-[60] hidden" role="dialog" aria-modal="true" aria-labelledby="judulLayanan">
+    <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"></div>
+    <div data-tutup-layanan class="absolute inset-0 overflow-y-auto overscroll-contain">
+      <div data-tutup-layanan class="min-h-full flex items-end sm:items-center justify-center sm:p-6">
+        <div class="modal-panel relative w-full max-w-lg bg-white rounded-t-3xl sm:rounded-3xl shadow-2xl overflow-hidden">
+
+          <button type="button" data-tutup-layanan aria-label="Tutup"
+                  class="absolute top-3 right-3 sm:top-4 sm:right-4 z-10 w-9 h-9 rounded-full bg-white/90 hover:bg-white text-slate-600 shadow-md flex items-center justify-center transition-colors">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>
+          </button>
+
+          <!-- Galeri foto ruangan, bisa digeser (swipe di HP, panah di desktop).
+               Kalau belum ada foto diisi, tampil ilustrasi sederhana. -->
+          <div class="relative w-full aspect-[4/3] bg-gradient-to-br from-brand-100 to-cyan-100 overflow-hidden">
+            <div id="trackFotoLayanan" class="hidden w-full h-full flex overflow-x-auto snap-x snap-mandatory scroll-smooth" style="scrollbar-width:none;"></div>
+
+            <div id="fotoLayananKosong" class="w-full h-full flex items-center justify-center text-brand-300">
+              <svg class="w-20 h-20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1V9.5z"/></svg>
+            </div>
+
+            <!-- Panah geser (hanya tampil kalau foto lebih dari 1) -->
+            <button type="button" id="prevFotoLayanan" aria-label="Foto sebelumnya"
+                    class="hidden absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/90 hover:bg-white text-slate-600 shadow-md items-center justify-center">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg>
+            </button>
+            <button type="button" id="nextFotoLayanan" aria-label="Foto berikutnya"
+                    class="hidden absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/90 hover:bg-white text-slate-600 shadow-md items-center justify-center">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
+            </button>
+
+            <!-- Titik penanda foto ke berapa (hanya tampil kalau foto lebih dari 1) -->
+            <div id="dotsFotoLayanan" class="hidden absolute bottom-3 left-1/2 -translate-x-1/2 items-center gap-1.5"></div>
+          </div>
+
+          <div class="p-5 sm:p-7">
+            <p class="eyebrow">Ruang Layanan</p>
+            <h2 id="judulLayanan" class="mt-1 text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">Nama Layanan</h2>
+            <p id="penjelasanLayanan" class="mt-3 text-sm sm:text-base text-slate-500 leading-relaxed"></p>
+
+            <button type="button" data-buka-janji data-tutup-layanan
+                    class="mt-6 w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-brand-600 to-cyan-600 text-white font-semibold px-7 py-3.5 rounded-full shadow-lg shadow-brand-600/30 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300">
+              Buat Janji untuk Layanan Ini
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- ================= POPUP JANJI TEMU ================= -->
   <div id="modalJanji" class="fixed inset-0 z-[60] hidden" role="dialog" aria-modal="true" aria-labelledby="judulJanji">
     <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"></div>
@@ -983,6 +1069,115 @@
         b.addEventListener("click", e => { e.preventDefault(); bukaModal(b); }));
       modal.addEventListener("click", e => { if (e.target.closest("button[data-tutup]") || e.target.hasAttribute("data-tutup")) tutupModal(); });
       document.addEventListener("keydown", e => { if (e.key === "Escape" && !modal.classList.contains("hidden")) tutupModal(); });
+
+      /* ---------- POPUP DETAIL LAYANAN (kartu "Poli Umum/Gigi/KIA/Lab" diklik) ---------- */
+      coba("popup layanan", () => {
+        const DETAIL = Array.isArray(K.LAYANAN_DETAIL) ? K.LAYANAN_DETAIL : [];
+        const modalL = document.getElementById("modalLayanan");
+        const judulL = document.getElementById("judulLayanan");
+        const teksL = document.getElementById("penjelasanLayanan");
+        const trackL = document.getElementById("trackFotoLayanan");
+        const fotoLKosong = document.getElementById("fotoLayananKosong");
+        const prevL = document.getElementById("prevFotoLayanan");
+        const nextL = document.getElementById("nextFotoLayanan");
+        const dotsL = document.getElementById("dotsFotoLayanan");
+        let pemicuL = null;
+
+        // Gambar ke berapa yang sedang terlihat (untuk nyalakan titik penanda yang aktif)
+        function fotoAktif() {
+          return trackL.clientWidth ? Math.round(trackL.scrollLeft / trackL.clientWidth) : 0;
+        }
+        function gesekeFoto(i) {
+          const total = trackL.children.length;
+          const tujuan = Math.max(0, Math.min(total - 1, i));
+          trackL.scrollTo({ left: tujuan * trackL.clientWidth, behavior: "smooth" });
+        }
+        function perbaruiTitik() {
+          const a = fotoAktif();
+          [...dotsL.children].forEach((dot, i) => {
+            dot.className = "h-1.5 rounded-full transition-all " + (i === a ? "w-5 bg-white" : "w-1.5 bg-white/60");
+          });
+        }
+
+        function bukaModalLayanan(idx, sumber) {
+          const d = DETAIL[idx] || {};
+          const kartu = sumber && sumber.querySelector ? sumber.querySelector("h3") : null;
+          const judul = kartu ? kartu.textContent : "Layanan";
+          judulL.textContent = judul;
+          teksL.textContent = d.penjelasan || "Informasi lebih lanjut dapat ditanyakan ke admin kami.";
+
+          // Terima baik foto berupa daftar (disarankan) maupun satu teks saja (untuk jaga-jaga)
+          const daftarFoto = Array.isArray(d.foto) ? d.foto.filter(Boolean) : (d.foto ? [d.foto] : []);
+
+          trackL.innerHTML = "";
+          if (daftarFoto.length === 0) {
+            trackL.classList.add("hidden");
+            fotoLKosong.classList.remove("hidden");
+            prevL.classList.add("hidden");
+            nextL.classList.add("hidden");
+            dotsL.classList.add("hidden");
+          } else {
+            fotoLKosong.classList.add("hidden");
+            trackL.classList.remove("hidden");
+            trackL.classList.toggle("flex", true);
+
+            daftarFoto.forEach((src, i) => {
+              const slide = document.createElement("div");
+              slide.className = "shrink-0 w-full h-full snap-start";
+              const img = document.createElement("img");
+              img.src = src;
+              img.alt = judul + (daftarFoto.length > 1 ? " (" + (i + 1) + "/" + daftarFoto.length + ")" : "");
+              img.loading = "lazy";
+              img.className = "w-full h-full object-cover";
+              img.onerror = () => { slide.remove(); if (!trackL.children.length) { trackL.classList.add("hidden"); fotoLKosong.classList.remove("hidden"); } };
+              slide.appendChild(img);
+              trackL.appendChild(slide);
+            });
+
+            const lebihDariSatu = daftarFoto.length > 1;
+            prevL.classList.toggle("hidden", !lebihDariSatu);
+            nextL.classList.toggle("hidden", !lebihDariSatu);
+            dotsL.classList.toggle("hidden", !lebihDariSatu);
+            prevL.classList.toggle("flex", lebihDariSatu);
+            nextL.classList.toggle("flex", lebihDariSatu);
+            dotsL.classList.toggle("flex", lebihDariSatu);
+
+            dotsL.innerHTML = daftarFoto.map(() => `<span class="h-1.5 w-1.5 rounded-full bg-white/60"></span>`).join("");
+            trackL.scrollLeft = 0;
+            perbaruiTitik();
+
+            // Dipasang ulang tiap buka (bukan ditumpuk) supaya tidak dobel-dobel event
+            prevL.onclick = () => gesekeFoto(fotoAktif() - 1);
+            nextL.onclick = () => gesekeFoto(fotoAktif() + 1);
+            let tunda = false;
+            trackL.onscroll = () => {
+              if (tunda) return;
+              tunda = true;
+              requestAnimationFrame(() => { perbaruiTitik(); tunda = false; });
+            };
+          }
+
+          pemicuL = sumber || null;
+          modalL.classList.remove("hidden");
+          document.body.classList.add("modal-open");
+        }
+        function tutupModalLayanan() {
+          modalL.classList.add("hidden");
+          // Jangan hapus 'modal-open' kalau popup Janji Temu baru saja dibuka dari sini & masih tampil.
+          if (modal.classList.contains("hidden")) document.body.classList.remove("modal-open");
+          if (pemicuL && pemicuL.focus) pemicuL.focus({ preventScroll: true });
+        }
+
+        document.querySelectorAll("[data-layanan]").forEach(btn =>
+          btn.addEventListener("click", () => bukaModalLayanan(+btn.dataset.layanan, btn)));
+        modalL.addEventListener("click", e => {
+          if (e.target.closest("[data-tutup-layanan]")) tutupModalLayanan();
+        });
+        document.addEventListener("keydown", e => {
+          if (e.key === "Escape" && !modalL.classList.contains("hidden")) tutupModalLayanan();
+        });
+        window.addEventListener("resize", () => { if (!modalL.classList.contains("hidden")) perbaruiTitik(); });
+      });
  
       /* ---------- FORM JANJI TEMU ---------- */
       const f = document.getElementById("formJanji");
